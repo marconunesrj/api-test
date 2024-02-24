@@ -8,7 +8,9 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 public class APITest {
-    
+
+    public static final String TODO = "/todo";
+
     @BeforeClass
     public static void setup(){
         RestAssured.baseURI = "http://localhost:8001/tasks-backend";
@@ -19,7 +21,7 @@ public class APITest {
         RestAssured.given()
                 .log().all()   // Logar a Requisição
             .when()
-                .get("/todo")
+                .get(TODO)
             .then()
                 .log().all()  // Logar e Resposta
         ;
@@ -33,7 +35,7 @@ public class APITest {
                 .body(" {\"task\": \"Teste via API\", \"dueDate\": \"2050-04-03\"}")
                 .contentType(ContentType.JSON)
             .when()
-                .post("/todo")
+                .post(TODO)
             .then()
                 .log().all()  // Logar e Resposta
         ;
@@ -43,7 +45,7 @@ public class APITest {
     public void deveRetornarTarefasTest() {
         RestAssured.given()
             .when()
-                .get("/todo")
+                .get(TODO)
             .then()
                 .statusCode(200)
         ;
@@ -56,7 +58,7 @@ public class APITest {
                 .body(" {\"task\": \"Teste via API\", \"dueDate\": \"2050-04-03\"}")  
                 .contentType(ContentType.JSON)
             .when()
-                .post("/todo")
+                .post(TODO)
             .then()
                 .statusCode(201)
         ;
@@ -70,7 +72,7 @@ public class APITest {
                 .body(" {\"task\": \"Teste via API\", \"dueDate\": \"2010-04-03\"}")  
                 .contentType(ContentType.JSON)
             .when()
-                .post("/todo")
+                .post(TODO)
             .then()
                 .statusCode(400)
                 .body("message", CoreMatchers.is("Due date must not be in past"))
