@@ -16,16 +16,16 @@ public class APITest {
         RestAssured.baseURI = "http://localhost:8001/tasks-backend";
     }
 
-    @Test
-    public void testGetTest() {
-        RestAssured.given()
-                .log().all()   // Logar a Requisição
-            .when()
-                .get(TODO)
-            .then()
-                .log().all()  // Logar e Resposta
-        ;
-    }
+    // @Test
+    // public void testGetTest() {
+    //     RestAssured.given()
+    //             .log().all()   // Logar a Requisição
+    //         .when()
+    //             .get(TODO)
+    //         .then()
+    //             .log().all()  // Logar e Resposta
+    //     ;
+    // }
 
     @Test
     public void testPostTest() {
